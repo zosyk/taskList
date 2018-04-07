@@ -1,76 +1,41 @@
 package com.nangasystems.tasklist;
 
-import com.nangasystems.tasklist.dbo.Task;
+import com.nangasystems.tasklist.controller.TaskListController;
 import com.nangasystems.tasklist.service.TaskListService;
 import javafx.application.Application;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import static com.nangasystems.tasklist.util.converter.MemoryConverter.convert;
+import java.io.IOException;
 
 public class TaskListApplication extends Application{
 
-    private TaskListService service;
+    private ApplicationContext applicationContext;
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         initSpringContext();
-        buildMainScreen(primaryStage);
-    }
+        primaryStage.setTitle("Task List");
 
-    private void buildMainScreen(Stage primaryStage) {
-        primaryStage.setTitle("Task list");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("tableView.fxml"));
+        VBox tableView = fxmlLoader.load();
+        TaskListController taskListController = fxmlLoader.getController();
+        taskListController.setTaskListService(applicationContext.getBean(TaskListService.class));
+        taskListController.initTaskTable();
 
-        ObservableList<Task> tasks = service.getTasks();
-
-        TableView<Task> taskTable = new TableView<>();
-        taskTable.setItems(tasks);
-        taskTable.getColumns().addAll(buildNameColumn(), buildProcessIDeColumn(), buildUsedMemoryColumn());
-
-        VBox vBox = new VBox();
-        vBox.getChildren().addAll(taskTable);
-
-        primaryStage.setScene(new Scene(vBox));
+        primaryStage.setScene(new Scene(tableView));
         primaryStage.show();
     }
 
-    private TableColumn<Task, String> buildNameColumn() {
-        TableColumn<Task, String> name = new TableColumn<>("Name");
-        name.setMinWidth(150);
-        name.setCellValueFactory(param -> param.getValue().getName());
-
-        return name;
-    }
-
-    private TableColumn<Task, Number> buildProcessIDeColumn() {
-        TableColumn<Task, Number> processID = new TableColumn<>("Process ID");
-        processID.setMinWidth(150);
-        processID.setCellValueFactory(param -> param.getValue().getProcessID());
-
-        return processID;
-    }
-
-    private TableColumn<Task, String> buildUsedMemoryColumn() {
-        TableColumn<Task, String> usedMemory = new TableColumn<>("Used Memory");
-        usedMemory.setMinWidth(150);
-        usedMemory.setCellValueFactory(param -> new SimpleStringProperty(convert(param.getValue().getUsedMemoryValue())));
-
-        return usedMemory;
-    }
-
     private void initSpringContext() {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("application-context.xml");
-        service = applicationContext.getBean(TaskListService.class);
+        applicationContext = new ClassPathXmlApplicationContext("application-context.xml");
     }
 }

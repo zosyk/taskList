@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.nangasystems.tasklist.controller.TaskListController">
-    <TableView fx:id="taskTable" prefHeight="500.0" prefWidth="200.0">
+<VBox prefHeight="500.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nangasystems.tasklist.controller.TaskListController">
+    <TableView fx:id="taskTable" prefHeight="500.0">
         <columns>
-            <TableColumn fx:id="nameColumn" prefWidth="194.0" text="Name"/>
-            <TableColumn fx:id="processIDColumn" minWidth="0.0" prefWidth="63.0" text="PID"/>
-            <TableColumn fx:id="memoryColumn" minWidth="0.0" prefWidth="142.0" text="Used Memory"/>
+            <TableColumn fx:id="nameColumn" prefWidth="217.0" text="Name" />
+            <TableColumn fx:id="processIDColumn" minWidth="0.0" prefWidth="68.0" text="PID" />
+            <TableColumn fx:id="memoryColumn" minWidth="0.0" prefWidth="114.0" text="Used Memory" />
         </columns>
     </TableView>
-
-
+   <AnchorPane prefHeight="86.0" prefWidth="400.0">
+      <children>
+          <Button layoutX="14.0" layoutY="6.0" mnemonicParsing="false" text="Refresh" onAction="#refreshTasks" />
+          <Label layoutX="102.0" layoutY="11.0" text="Tasks count:" />
+          <Label fx:id="tasksCount" layoutX="194.0" layoutY="11.0" />
+      </children></AnchorPane>
 </VBox>
