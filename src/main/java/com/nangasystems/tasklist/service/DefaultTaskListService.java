@@ -1,8 +1,8 @@
 package com.nangasystems.tasklist.service;
 
-import com.nangasystems.tasklist.TaskParser;
+import com.nangasystems.tasklist.util.parser.TaskParser;
 import com.nangasystems.tasklist.dbo.Task;
-import com.nangasystems.tasklist.executor.CmdExecutor;
+import com.nangasystems.tasklist.util.executor.CmdExecutor;
 import javafx.collections.ObservableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

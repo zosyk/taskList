@@ -1,4 +1,4 @@
-package com.nangasystems.tasklist;
+package com.nangasystems.tasklist.util.parser;
 
 import com.nangasystems.tasklist.dbo.Task;
 import javafx.collections.FXCollections;
@@ -22,6 +22,7 @@ public class TaskParser {
                                 array[0],
                                 Long.valueOf(array[1]),
                                 Long.valueOf(array[4].replaceAll("(?!\\d).", ""))))
+                .sorted()
                 .collect(Collectors.toList());
 
         return FXCollections.observableArrayList(tasks);

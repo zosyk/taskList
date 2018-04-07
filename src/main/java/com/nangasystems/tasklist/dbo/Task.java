@@ -3,7 +3,7 @@ package com.nangasystems.tasklist.dbo;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Task {
+public class Task implements Comparable<Task> {
 
     private SimpleStringProperty name;
     private SimpleLongProperty processID;
@@ -66,5 +66,10 @@ public class Task {
                 ", processID=" + processID.getValue() +
                 ", usedMemory=" + usedMemory.getValue() +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        return (int)(o.getUsedMemoryValue() - this.getUsedMemoryValue());
     }
 }

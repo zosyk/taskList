@@ -1,4 +1,4 @@
-package com.nangasystems.tasklist.executor;
+package com.nangasystems.tasklist.util.executor;
 
 import java.util.List;
 
