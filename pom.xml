@@ -11,6 +11,7 @@
 	<name>tasklist</name>
 	<properties>
 		<spring.version>5.0.4.RELEASE</spring.version>
+		<slf4j.version>1.7.25</slf4j.version>
 	</properties>
 
 	<dependencies>
@@ -25,8 +26,13 @@
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-	</dependencies>
 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>

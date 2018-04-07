@@ -23,39 +23,47 @@ public class TaskListApplication extends Application{
     @Override
     public void start(Stage primaryStage) {
         initSpringContext();
+        buildMainScreen(primaryStage);
+    }
 
-        TableView<Task> taskTable;
-
+    private void buildMainScreen(Stage primaryStage) {
         primaryStage.setTitle("Task list");
 
-        //name column
-        TableColumn<Task, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setMinWidth(200);
-//        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        //pID column
-        TableColumn<Task, Integer> pIDColumn = new TableColumn<>("pID");
-        pIDColumn.setMinWidth(200);
-//        pIDColumn.setCellValueFactory(new PropertyValueFactory<>("pID"));
-
-        //usedMemory column
-        TableColumn<Task, Integer> usedMemoryColumn = new TableColumn<>("usedMemory");
-        usedMemoryColumn.setMinWidth(200);
-//        usedMemoryColumn.setCellValueFactory(new PropertyValueFactory<>("usedMemory"));
-
-
-        taskTable = new TableView<>();
+        TableView<Task> taskTable = new TableView<>();
 
         ObservableList<Task> tasks = service.getTasks();
         taskTable.setItems(tasks);
-        taskTable.getColumns().addAll(nameColumn, pIDColumn, usedMemoryColumn);
-
+        taskTable.getColumns().addAll(buildNameColumn(), buildProcessIDeColumn(), buildUsedMemoryColumn());
 
         VBox vBox = new VBox();
         vBox.getChildren().addAll(taskTable);
 
         primaryStage.setScene(new Scene(vBox));
         primaryStage.show();
+    }
+
+    private TableColumn<Task, String> buildNameColumn() {
+        TableColumn<Task, String> name = new TableColumn<>("Name");
+        name.setMinWidth(150);
+        name.setCellValueFactory(param -> param.getValue().getName());
+
+        return name;
+    }
+
+    private TableColumn<Task, Number> buildProcessIDeColumn() {
+        TableColumn<Task, Number> processID = new TableColumn<>("Process ID");
+        processID.setMinWidth(150);
+        processID.setCellValueFactory(param -> param.getValue().getProcessID());
+
+        return processID;
+    }
+
+    private TableColumn<Task, Number> buildUsedMemoryColumn() {
+        TableColumn<Task, Number> usedMemory = new TableColumn<>("Used Memory");
+        usedMemory.setMinWidth(150);
+        usedMemory.setCellValueFactory(param -> param.getValue().getUsedMemory());
+
+        return usedMemory;
     }
 
     private void initSpringContext() {

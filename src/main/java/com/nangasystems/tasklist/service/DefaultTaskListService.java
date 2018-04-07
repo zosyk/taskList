@@ -1,23 +1,34 @@
 package com.nangasystems.tasklist.service;
 
+import com.nangasystems.tasklist.TaskParser;
 import com.nangasystems.tasklist.dbo.Task;
-import javafx.collections.FXCollections;
+import com.nangasystems.tasklist.executor.CmdExecutor;
 import javafx.collections.ObservableList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
 public class DefaultTaskListService implements TaskListService {
 
+    private final static Logger LOG = LoggerFactory.getLogger(DefaultTaskListService.class);
+
+    private final static String TASKLIST_COMMAND = "chcp.com 65001 && tasklist /fo csv";// 65001 - UTF-8 code
+
+    @Autowired
+    private CmdExecutor cmdExecutor;
+
+    @Autowired
+    private TaskParser taskParser;
+
     public ObservableList<Task> getTasks() {
-        ObservableList<Task> tasks = FXCollections.observableArrayList();
 
-        tasks.add(new Task("process1,", 10, 1000));
-        tasks.add(new Task("process1,", 10, 1000));
-        tasks.add(new Task("process1,", 10, 1000));
-        tasks.add(new Task("process1,", 10, 1000));
-        tasks.add(new Task("process1,", 10, 1000));
+        List<String> lines = cmdExecutor.execute(TASKLIST_COMMAND);
 
-        return tasks;
+        return taskParser.parse(lines);
     }
 }

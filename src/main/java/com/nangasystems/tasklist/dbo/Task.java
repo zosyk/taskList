@@ -58,4 +58,13 @@ public class Task {
         result = 31 * result + (getUsedMemoryValue() != null ? getUsedMemoryValue().hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "name=" + name.getValue() +
+                ", processID=" + processID.getValue() +
+                ", usedMemory=" + usedMemory.getValue() +
+                '}';
+    }
 }
