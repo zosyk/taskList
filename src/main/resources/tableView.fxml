@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nangasystems.tasklist.controller.TaskListController">
+    <TableView fx:id="taskTable" prefHeight="500.0" prefWidth="200.0">
+        <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="194.0" text="Name"/>
+            <TableColumn fx:id="processIDColumn" minWidth="0.0" prefWidth="63.0" text="PID"/>
+            <TableColumn fx:id="memoryColumn" minWidth="0.0" prefWidth="142.0" text="Used Memory"/>
+        </columns>
+    </TableView>
+
+
+</VBox>
