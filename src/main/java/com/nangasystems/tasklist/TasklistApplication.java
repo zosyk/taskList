@@ -3,6 +3,7 @@ package com.nangasystems.tasklist;
 import com.nangasystems.tasklist.dbo.Task;
 import com.nangasystems.tasklist.service.TaskListService;
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -11,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import static com.nangasystems.tasklist.util.converter.MemoryConverter.convert;
 
 public class TaskListApplication extends Application{
 
@@ -29,9 +32,9 @@ public class TaskListApplication extends Application{
     private void buildMainScreen(Stage primaryStage) {
         primaryStage.setTitle("Task list");
 
-        TableView<Task> taskTable = new TableView<>();
-
         ObservableList<Task> tasks = service.getTasks();
+
+        TableView<Task> taskTable = new TableView<>();
         taskTable.setItems(tasks);
         taskTable.getColumns().addAll(buildNameColumn(), buildProcessIDeColumn(), buildUsedMemoryColumn());
 
@@ -58,10 +61,10 @@ public class TaskListApplication extends Application{
         return processID;
     }
 
-    private TableColumn<Task, Number> buildUsedMemoryColumn() {
-        TableColumn<Task, Number> usedMemory = new TableColumn<>("Used Memory");
+    private TableColumn<Task, String> buildUsedMemoryColumn() {
+        TableColumn<Task, String> usedMemory = new TableColumn<>("Used Memory");
         usedMemory.setMinWidth(150);
-        usedMemory.setCellValueFactory(param -> param.getValue().getUsedMemory());
+        usedMemory.setCellValueFactory(param -> new SimpleStringProperty(convert(param.getValue().getUsedMemoryValue())));
 
         return usedMemory;
     }
