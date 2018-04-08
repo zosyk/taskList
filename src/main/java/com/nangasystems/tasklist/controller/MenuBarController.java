@@ -39,7 +39,7 @@ public class MenuBarController {
     private void importFromXml() {
         File file = getFileChooser().showOpenDialog(null);
         if (file != null) {
-            application.compareTaskLists(file);
+            application.openCompareTaskListsWindow(file);
         } else {
             LOG.error("Unable to import. File is null!");//todo think about error dialog
         }

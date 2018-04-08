@@ -97,7 +97,7 @@ public class DefaultTaskListService implements TaskListService {
                         comparableTasks.add(
                                 new ComparableTask(Task.empty(), REMOVED, task)));
 
-        return comparableTasks;
+        return comparableTasks.sorted();
     }
 
     public void export(List<Task> tasks, File exportFile) {

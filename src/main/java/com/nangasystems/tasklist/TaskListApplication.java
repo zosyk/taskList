@@ -3,15 +3,12 @@ package com.nangasystems.tasklist;
 import com.nangasystems.tasklist.controller.ComparableTaskListController;
 import com.nangasystems.tasklist.controller.MenuBarController;
 import com.nangasystems.tasklist.controller.TaskListController;
-import com.nangasystems.tasklist.dbo.Task;
 import com.nangasystems.tasklist.service.TaskListService;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -65,7 +62,7 @@ public class TaskListApplication extends Application{
         taskListService = applicationContext.getBean(TaskListService.class);
     }
 
-    public void compareTaskLists(File file) {
+    public void openCompareTaskListsWindow(File file) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/compareTaskLists.fxml"));
         try {
             VBox vBox = fxmlLoader.load();
@@ -75,6 +72,7 @@ public class TaskListApplication extends Application{
             controller.init();
 
             Stage window = new Stage();
+            window.setTitle(String.format("Compare running processes with dumped file %s", file.getName()));
             Scene scene = new Scene(vBox);
             window.setScene(scene);
             window.show();
