@@ -44,7 +44,7 @@ public class TaskListController {
     }
 
     @FXML
-    public void refreshTasks() {
+    private void refreshTasks() {
         ObservableList<Task> tasks = taskListService.getTasks();
         if(groupCheckBox.isSelected()) {
             taskTable.setItems(tasks);
@@ -55,7 +55,7 @@ public class TaskListController {
     }
 
     @FXML
-    public void groupTasks() {
+    private void groupTasks() {
         ObservableList<Task> tasks;
         if (groupCheckBox.isSelected()) {
             tasks = taskTable.getItems().stream()

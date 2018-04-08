@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<VBox prefHeight="500.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nangasystems.tasklist.controller.TaskListController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.nangasystems.tasklist.controller.TaskListController">
     <TableView fx:id="taskTable" prefHeight="500.0">
         <columns>
             <TableColumn fx:id="nameColumn" prefWidth="217.0" text="Name" />
@@ -14,8 +15,9 @@
    <AnchorPane prefHeight="86.0" prefWidth="400.0">
       <children>
           <Button layoutX="14.0" layoutY="6.0" mnemonicParsing="false" onAction="#refreshTasks" text="Refresh" />
-          <CheckBox layoutX="97.0" layoutY="11.0" mnemonicParsing="false" text="Group tasks" onAction="#groupTasks" fx:id="groupCheckBox" />
+          <CheckBox fx:id="groupCheckBox" layoutX="97.0" layoutY="11.0" mnemonicParsing="false" onAction="#groupTasks" text="Group tasks" />
           <Label layoutX="248.0" layoutY="11.0" text="Tasks count:" />
           <Label fx:id="tasksCount" layoutX="340.0" layoutY="11.0" />
-      </children></AnchorPane>
+      </children>
+   </AnchorPane>
 </VBox>
