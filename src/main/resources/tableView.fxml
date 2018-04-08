@@ -5,14 +5,23 @@
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.nangasystems.tasklist.controller.TaskListController">
-    <TableView fx:id="taskTable" prefHeight="500.0">
+    <MenuBar>
+        <menus>
+            <Menu mnemonicParsing="false" text="File">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="Export to xml..." onAction="#exportToXml"/>
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+    <TableView fx:id="taskTable">
         <columns>
             <TableColumn fx:id="nameColumn" prefWidth="217.0" text="Name" />
             <TableColumn fx:id="processIDColumn" minWidth="0.0" prefWidth="68.0" text="PID" />
             <TableColumn fx:id="memoryColumn" minWidth="0.0" prefWidth="114.0" text="Used Memory" />
         </columns>
     </TableView>
-   <AnchorPane prefHeight="86.0" prefWidth="400.0">
+   <AnchorPane prefWidth="400.0">
       <children>
           <Button layoutX="14.0" layoutY="6.0" mnemonicParsing="false" onAction="#refreshTasks" text="Refresh" />
           <CheckBox fx:id="groupCheckBox" layoutX="97.0" layoutY="11.0" mnemonicParsing="false" onAction="#groupTasks" text="Group tasks" />

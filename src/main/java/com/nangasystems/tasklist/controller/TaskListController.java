@@ -7,12 +7,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.stream.Collectors;
 
 import static com.nangasystems.tasklist.util.converter.MemoryConverter.convert;
 
 public class TaskListController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(TaskListController.class);
 
     private TaskListService taskListService;
 
@@ -44,7 +50,7 @@ public class TaskListController {
     }
 
     @FXML
-    public void refreshTasks() {
+    private void refreshTasks() {
         ObservableList<Task> tasks = taskListService.getTasks();
         if(groupCheckBox.isSelected()) {
             taskTable.setItems(tasks);
@@ -55,7 +61,7 @@ public class TaskListController {
     }
 
     @FXML
-    public void groupTasks() {
+    private void groupTasks() { //todo move to service
         ObservableList<Task> tasks;
         if (groupCheckBox.isSelected()) {
             tasks = taskTable.getItems().stream()
@@ -72,6 +78,25 @@ public class TaskListController {
             tasks = taskListService.getTasks();
         }
         refreshTasks(tasks);
+    }
+
+    @FXML
+    private void exportToXml() {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            try {
+                taskListService.export(taskTable.getItems(), file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            LOG.error("Unable to exporter to a null file");
+        }
     }
 
     private void refreshTasks(ObservableList<Task> tasks) {

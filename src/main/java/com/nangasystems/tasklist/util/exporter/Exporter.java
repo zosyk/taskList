@@ -1,13 +1,11 @@
-package com.nangasystems.tasklist.service;
+package com.nangasystems.tasklist.util.exporter;
 
 import com.nangasystems.tasklist.dbo.Task;
-import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.util.List;
 
-public interface TaskListService {
+public interface Exporter {
 
-    ObservableList<Task> getTasks();
     void export(List<Task> tasks, File exportFile) throws Exception;
 }

@@ -3,11 +3,20 @@ package com.nangasystems.tasklist.dbo;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "task")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class Task implements Comparable<Task> {
 
     private SimpleStringProperty name;
     private SimpleStringProperty processID;
     private SimpleLongProperty usedMemory;
+
+    public Task() {}
 
     public Task(String name, String processID, long usedMemory) {
         this.name = new SimpleStringProperty(name);
@@ -27,6 +36,7 @@ public class Task implements Comparable<Task> {
         return usedMemory;
     }
 
+    @XmlElement(name = "name")
     public String getNameValue() {
         return name.getValue();
     }
@@ -35,6 +45,7 @@ public class Task implements Comparable<Task> {
         return processID.getValue();
     }
 
+    @XmlElement(name = "memory")
     public Long getUsedMemoryValue() {
         return usedMemory.getValue();
     }
