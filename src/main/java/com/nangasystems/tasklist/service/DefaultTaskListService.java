@@ -1,17 +1,16 @@
 package com.nangasystems.tasklist.service;
 
 import com.nangasystems.tasklist.dbo.ComparableTask;
+import com.nangasystems.tasklist.dbo.Task;
 import com.nangasystems.tasklist.util.CompareStatus;
+import com.nangasystems.tasklist.util.executor.CmdExecutor;
 import com.nangasystems.tasklist.util.exporter.Exporter;
 import com.nangasystems.tasklist.util.importer.Importer;
 import com.nangasystems.tasklist.util.parser.TaskParser;
-import com.nangasystems.tasklist.dbo.Task;
-import com.nangasystems.tasklist.util.executor.CmdExecutor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -26,20 +25,11 @@ import static com.nangasystems.tasklist.util.CompareStatus.*;
 @Service
 public class DefaultTaskListService implements TaskListService {
 
-    private final static Logger LOG = LoggerFactory.getLogger(DefaultTaskListService.class);
-
     private final static String TASKLIST_COMMAND = "chcp.com 65001 && tasklist /fo csv";// 65001 - UTF-8 code
 
-    @Autowired
     private CmdExecutor cmdExecutor;
-
-    @Autowired
     private TaskParser taskParser;
-
-    @Autowired
     private Exporter exporter;
-
-    @Autowired
     private Importer importer;
 
     public ObservableList<Task> getTasks() {
@@ -106,5 +96,29 @@ public class DefaultTaskListService implements TaskListService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Autowired
+    @Required
+    public void setCmdExecutor(CmdExecutor cmdExecutor) {
+        this.cmdExecutor = cmdExecutor;
+    }
+
+    @Autowired
+    @Required
+    public void setTaskParser(TaskParser taskParser) {
+        this.taskParser = taskParser;
+    }
+
+    @Autowired
+    @Required
+    public void setExporter(Exporter exporter) {
+        this.exporter = exporter;
+    }
+
+    @Autowired
+    @Required
+    public void setImporter(Importer importer) {
+        this.importer = importer;
     }
 }
