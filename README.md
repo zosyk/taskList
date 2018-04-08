@@ -1,0 +1,1 @@
+https://travis-ci.org/zosyk/taskList.svg?branch=master
