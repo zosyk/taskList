@@ -19,6 +19,11 @@ public class Task implements Comparable<Task> {
         this.memory = memory;
     }
 
+    public Task(String name, long memory) {
+        this.name = name;
+        this.memory = memory;
+    }
+
     @XmlElement(name = "name")
     public String getName() {
         return name;
