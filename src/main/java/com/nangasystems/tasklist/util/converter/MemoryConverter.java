@@ -13,7 +13,7 @@ public class MemoryConverter {
         } else if (value >= GB.getValue()) {
             return format(MEMORY_FORMAT, 1.f * value / GB.getValue(), GB.name());
         } else {
-            return format(MEMORY_FORMAT, 1.f * value, KB.name());
+            return format("%d %s", value, KB.name());
         }
     }
 }

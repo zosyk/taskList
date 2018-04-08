@@ -3,22 +3,16 @@ package com.nangasystems.tasklist.controller;
 import com.nangasystems.tasklist.dbo.Task;
 import com.nangasystems.tasklist.service.TaskListService;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.stage.FileChooser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.util.stream.Collectors;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 import static com.nangasystems.tasklist.util.converter.MemoryConverter.convert;
 
 public class TaskListController {
-
-    private static final Logger LOG = LoggerFactory.getLogger(TaskListController.class);
 
     private TaskListService taskListService;
 
@@ -43,16 +37,16 @@ public class TaskListController {
     public void initTaskTable() {
         refreshTasks(taskListService.getTasks());
 
-        nameColumn.setCellValueFactory(param -> param.getValue().getName());
-        processIDColumn.setCellValueFactory(param -> param.getValue().getProcessID());
-        memoryColumn.setCellValueFactory(param -> new SimpleStringProperty(convert(param.getValue().getUsedMemoryValue())));
+        nameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
+        processIDColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getId()));
+        memoryColumn.setCellValueFactory(param -> new SimpleStringProperty(convert(param.getValue().getMemory())));
 
     }
 
     @FXML
     private void refreshTasks() {
         ObservableList<Task> tasks = taskListService.getTasks();
-        if(groupCheckBox.isSelected()) {
+        if (groupCheckBox.isSelected()) {
             taskTable.setItems(tasks);
             groupTasks();
         } else {
@@ -61,42 +55,14 @@ public class TaskListController {
     }
 
     @FXML
-    private void groupTasks() { //todo move to service
+    private void groupTasks() {
         ObservableList<Task> tasks;
         if (groupCheckBox.isSelected()) {
-            tasks = taskTable.getItems().stream()
-                    .collect(
-                            Collectors.groupingBy(
-                                    Task::getNameValue,
-                                    Collectors.summingLong(Task::getUsedMemoryValue)))
-                    .entrySet().stream()
-                    .map(entry -> new Task(entry.getKey(), "", entry.getValue()))
-                    .sorted()
-                    .collect(Collectors.toCollection(
-                            FXCollections::observableArrayList));
+            tasks = taskListService.getGroupedTasks();
         } else {
             tasks = taskListService.getTasks();
         }
         refreshTasks(tasks);
-    }
-
-    @FXML
-    private void exportToXml() {
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
-        fileChooser.getExtensionFilters().add(extFilter);
-
-        File file = fileChooser.showSaveDialog(null);
-
-        if (file != null) {
-            try {
-                taskListService.export(taskTable.getItems(), file);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            LOG.error("Unable to exporter to a null file");
-        }
     }
 
     private void refreshTasks(ObservableList<Task> tasks) {

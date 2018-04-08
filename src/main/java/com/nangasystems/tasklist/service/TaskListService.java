@@ -9,5 +9,9 @@ import java.util.List;
 public interface TaskListService {
 
     ObservableList<Task> getTasks();
-    void export(List<Task> tasks, File exportFile) throws Exception;
+    void export(List<Task> tasks, File exportFile);
+
+    ObservableList<Task> getGroupedTasks();
+
+    ObservableList<Task> importTasks(File file) throws Exception;
 }
