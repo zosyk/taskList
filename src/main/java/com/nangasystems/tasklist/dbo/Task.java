@@ -6,12 +6,12 @@ import javafx.beans.property.SimpleStringProperty;
 public class Task implements Comparable<Task> {
 
     private SimpleStringProperty name;
-    private SimpleLongProperty processID;
+    private SimpleStringProperty processID;
     private SimpleLongProperty usedMemory;
 
-    public Task(String name, long processID, long usedMemory) {
+    public Task(String name, String processID, long usedMemory) {
         this.name = new SimpleStringProperty(name);
-        this.processID = new SimpleLongProperty(processID);
+        this.processID = new SimpleStringProperty(processID);
         this.usedMemory = new SimpleLongProperty(usedMemory);
     }
 
@@ -19,7 +19,7 @@ public class Task implements Comparable<Task> {
         return name;
     }
 
-    public SimpleLongProperty getProcessID() {
+    public SimpleStringProperty getProcessID() {
         return processID;
     }
 
@@ -31,7 +31,7 @@ public class Task implements Comparable<Task> {
         return name.getValue();
     }
 
-    public Long getProcessIDValue() {
+    public String getProcessIDValue() {
         return processID.getValue();
     }
 

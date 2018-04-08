@@ -20,7 +20,7 @@ public class TaskParser {
                 .map(array ->
                         new Task(
                                 array[0],
-                                Long.valueOf(array[1]),
+                                array[1],
                                 Long.valueOf(array[4].replaceAll("(?!\\d).", ""))))
                 .sorted()
                 .collect(Collectors.toList());
