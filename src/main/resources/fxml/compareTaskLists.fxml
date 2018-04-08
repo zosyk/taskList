@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nangasystems.tasklist.controller.ComparableTaskListController">
+   <SplitPane dividerPositions="0.4957865168539326" focusTraversable="false" prefHeight="43.0" prefWidth="714.0">
+     <items>
+       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <children>
+               <Label layoutX="38.0" layoutY="4.0" text="Running processes" />
+            </children></AnchorPane>
+       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <children>
+               <Label layoutX="34.0" layoutY="4.0" text="Dumped processes" />
+            </children></AnchorPane>
+     </items>
+   </SplitPane>
+    <TableView fx:id="compareTaskTable">
+        <columns>
+            <TableColumn fx:id="leftName" prefWidth="197.0" text="Name" />
+            <TableColumn fx:id="leftMemory" minWidth="0.0" prefWidth="113.0" text="Used Memory" />
+            <TableColumn fx:id="status" minWidth="0.0" prefWidth="114.0" text="Status" />
+            <TableColumn fx:id="rightName" prefWidth="190.0" text="Name" />
+            <TableColumn fx:id="rightMemory" minWidth="0.0" prefWidth="114.0" text="Used Memory" />
+        </columns>
+    </TableView>
+</VBox>

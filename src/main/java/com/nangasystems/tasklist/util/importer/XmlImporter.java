@@ -1,4 +1,4 @@
-package com.nangasystems.tasklist.util.importer.exporter;
+package com.nangasystems.tasklist.util.importer;
 
 import com.nangasystems.tasklist.dbo.Task;
 import com.nangasystems.tasklist.dbo.Tasks;

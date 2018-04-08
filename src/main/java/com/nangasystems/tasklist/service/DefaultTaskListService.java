@@ -3,7 +3,7 @@ package com.nangasystems.tasklist.service;
 import com.nangasystems.tasklist.dbo.ComparableTask;
 import com.nangasystems.tasklist.util.CompareStatus;
 import com.nangasystems.tasklist.util.exporter.Exporter;
-import com.nangasystems.tasklist.util.importer.exporter.Importer;
+import com.nangasystems.tasklist.util.importer.Importer;
 import com.nangasystems.tasklist.util.parser.TaskParser;
 import com.nangasystems.tasklist.dbo.Task;
 import com.nangasystems.tasklist.util.executor.CmdExecutor;
@@ -86,7 +86,7 @@ public class DefaultTaskListService implements TaskListService {
                 }
                 dumpedMap.remove(task.getName());
             } else {
-                dumpedTask = new Task();
+                dumpedTask = Task.empty();
                 status = ADDED;
             }
             comparableTasks.add(new ComparableTask(task, status, dumpedTask));
@@ -95,7 +95,7 @@ public class DefaultTaskListService implements TaskListService {
         dumpedMap.values().stream()
                 .forEach(task ->
                         comparableTasks.add(
-                                new ComparableTask(new Task(), REMOVED, task)));
+                                new ComparableTask(Task.empty(), REMOVED, task)));
 
         return comparableTasks;
     }
